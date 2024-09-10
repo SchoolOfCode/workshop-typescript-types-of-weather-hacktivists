@@ -16,7 +16,7 @@ export default function App() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
-
+    
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -26,9 +26,20 @@ export default function App() {
     return () => subscription.unsubscribe();
   }, []);
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();  // This method logs out the user
+    window.location.reload();  // Optional: Reload to update the UI after logging out
+  }
+
+
   if (!session) {
     return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />;
   } else {
-    return <div>Logged in!</div>;
+    return (
+    <div>
+      <p>Logged in!</p>
+      <button onClick={handleLogout}>Log Out </button>
+    </div>)
+    
   }
 }
