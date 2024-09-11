@@ -23,9 +23,16 @@ interface Conditions {
     icon:        string;
 }
 
+interface Wind {
+  speed: number;
+  deg:   number;
+}
+
 const [city, setCity] = useState('');
 const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 const [conditions, setConditions] = useState<Conditions | null>(null);
+const [cityTitle, setCityTitle] = useState('');
+const [windConditions, setWindConditions] = useState<Wind | null>(null)
 
 function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
   setCity(e.target.value);
@@ -39,21 +46,14 @@ async function handleSubmit(e: React.FormEvent<HTMLElement>) {
   const Jsonresponse = await response.json();
   setWeatherData(Jsonresponse.main);
   setConditions(Jsonresponse.weather[0]);
-  console.log(conditions);
-  console.log(weatherData)
+  setCityTitle(Jsonresponse.name);
+  setWindConditions(Jsonresponse.wind);
+  setCity('');
 }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Weather</h1>
+      <h1>Whatever the Weather</h1>
       <section>
         <form className="fields" onSubmit={handleSubmit}>
           <label>
@@ -67,13 +67,25 @@ async function handleSubmit(e: React.FormEvent<HTMLElement>) {
       <section>
         {weatherData ? (
         <div>
+          <h2>The current weather in {cityTitle}</h2>
           <p>Current Temperature is: {weatherData.temp}degrees celcius</p>
           <p>The Humidty is: {weatherData.humidity}%</p>
-          <p>It's blowing this hard:  knots</p>
+          <p>It's blowing this hard: {windConditions?.speed} metric wind speed units</p>
           <p>The sky is full of: {conditions?.description}</p>
         </div>
-        ) : (<p>No data available</p>)
+        ) : (<p>Enter a city to grab the current weather</p>)
         }
+      </section>
+      <section>
+        <h3>Built with:</h3>
+        <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
       </section>
     </>
   )
