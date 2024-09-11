@@ -5,8 +5,19 @@ import './App.css'
 
 function App() {
 
+  interface WeatherData {
+    feels_like: number;
+    grnd_level: number;
+    humidity:   number;
+    pressure:   number;
+    sea_level:  number;
+    temp:       number;
+    temp_max:   number;
+    temp_min:   number;
+  }
+
 const [city, setCity] = useState('');
-const [weatherData, setWeatherData] = useState([]);
+const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
 
 function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
   setCity(e.target.value);
@@ -18,7 +29,7 @@ async function handleSubmit(e: React.FormEvent<HTMLElement>) {
   const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=7838f680b4e26dfad4a613789bdff46b&units=metric`)
   // store the section of the response we want in state
   const Jsonresponse = await response.json();
-  setWeatherData(Jsonresponse);
+  setWeatherData(Jsonresponse.main);
   console.log(weatherData);
 }
 
@@ -44,7 +55,8 @@ async function handleSubmit(e: React.FormEvent<HTMLElement>) {
         </form>
       </section>
       <section>
-        <p></p>
+        <p>{weatherData[0].temp}</p>
+        <p>{weatherData[0].humidity}</p>
       </section>
     </>
   )
