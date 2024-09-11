@@ -6,9 +6,20 @@ import './App.css'
 function App() {
 
 const [city, setCity] = useState('');
+const [weatherData, setWeatherData] = useState([]);
 
 function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
   setCity(e.target.value);
+}
+
+async function handleSubmit(e: React.FormEvent<HTMLElement>) {
+  e.preventDefault();
+  // take city and send it in a GET request to Openweather API
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=7838f680b4e26dfad4a613789bdff46b&units=metric`)
+  // store the section of the response we want in state
+  const Jsonresponse = await response.json();
+  setWeatherData(Jsonresponse);
+  console.log(weatherData);
 }
 
   return (
@@ -23,7 +34,7 @@ function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
       </div>
       <h1>Weather</h1>
       <section>
-        <form className="fields">
+        <form className="fields" onSubmit={handleSubmit}>
           <label>
             <input type="text" value={city} onChange={handleChange}/>
           </label>
@@ -33,7 +44,7 @@ function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         </form>
       </section>
       <section>
-        <p>clouds card</p>
+        <p></p>
       </section>
     </>
   )
