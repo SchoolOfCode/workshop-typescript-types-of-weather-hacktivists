@@ -25,8 +25,10 @@
 - onSubmit fire the GET request ✅
 - store Json data from GET request in a STATE ✅
 - used state to display the test data ✅
-- Make the weather data:
+- Display the weather data:
   - Temp
   - humidity
   - conditions
   - windspeed
+
+6. Split into components (TBD)
