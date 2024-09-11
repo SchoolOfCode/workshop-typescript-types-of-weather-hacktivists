@@ -16,8 +16,16 @@ function App() {
     temp_min:   number;
   }
 
+interface Conditions {
+    id:          number;
+    main:        string;
+    description: string;
+    icon:        string;
+}
+
 const [city, setCity] = useState('');
 const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+const [conditions, setConditions] = useState<Conditions | null>(null);
 
 function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
   setCity(e.target.value);
@@ -30,7 +38,9 @@ async function handleSubmit(e: React.FormEvent<HTMLElement>) {
   // store the section of the response we want in state
   const Jsonresponse = await response.json();
   setWeatherData(Jsonresponse.main);
-  console.log(weatherData);
+  setConditions(Jsonresponse.weather[0]);
+  console.log(conditions);
+  console.log(weatherData)
 }
 
   return (
@@ -57,8 +67,10 @@ async function handleSubmit(e: React.FormEvent<HTMLElement>) {
       <section>
         {weatherData ? (
         <div>
-          <p>{weatherData.temp}</p>
-          <p>{weatherData.humidity}</p>
+          <p>Current Temperature is: {weatherData.temp}degrees celcius</p>
+          <p>The Humidty is: {weatherData.humidity}%</p>
+          <p>It's blowing this hard:  knots</p>
+          <p>The sky is full of: {conditions?.description}</p>
         </div>
         ) : (<p>No data available</p>)
         }
