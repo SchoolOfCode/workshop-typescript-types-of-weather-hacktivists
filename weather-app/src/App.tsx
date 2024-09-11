@@ -17,7 +17,7 @@ function App() {
   }
 
 const [city, setCity] = useState('');
-const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
+const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
 function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
   setCity(e.target.value);
@@ -55,8 +55,13 @@ async function handleSubmit(e: React.FormEvent<HTMLElement>) {
         </form>
       </section>
       <section>
-        <p>{weatherData[0].temp}</p>
-        <p>{weatherData[0].humidity}</p>
+        {weatherData ? (
+        <div>
+          <p>{weatherData.temp}</p>
+          <p>{weatherData.humidity}</p>
+        </div>
+        ) : (<p>No data available</p>)
+        }
       </section>
     </>
   )
