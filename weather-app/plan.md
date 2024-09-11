@@ -25,8 +25,12 @@
 - onSubmit fire the GET request ✅
 - store Json data from GET request in a STATE ✅
 - used state to display the test data ✅
-- Make the weather data:
+- Make the weather data:✅
   - Temp
   - humidity
   - conditions
   - windspeed
+
+  6. Make components of HTML code
+
+  7. 

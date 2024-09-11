@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Form from './components/Form/Form'
 
 function App() {
 
@@ -27,21 +28,21 @@ const [city, setCity] = useState('');
 const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 const [conditions, setConditions] = useState<Conditions | null>(null);
 
-function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-  setCity(e.target.value);
-}
+// function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+//   setCity(e.target.value);
+// }
 
-async function handleSubmit(e: React.FormEvent<HTMLElement>) {
-  e.preventDefault();
-  // take city and send it in a GET request to Openweather API
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=7838f680b4e26dfad4a613789bdff46b&units=metric`)
-  // store the section of the response we want in state
-  const Jsonresponse = await response.json();
-  setWeatherData(Jsonresponse.main);
-  setConditions(Jsonresponse.weather[0]);
-  console.log(conditions);
-  console.log(weatherData)
-}
+// async function handleSubmit(e: React.FormEvent<HTMLElement>) {
+//   e.preventDefault();
+//   // take city and send it in a GET request to Openweather API
+//   const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=7838f680b4e26dfad4a613789bdff46b&units=metric`)
+//   // store the section of the response we want in state
+//   const Jsonresponse = await response.json();
+//   setWeatherData(Jsonresponse.main);
+//   setConditions(Jsonresponse.weather[0]);
+//   console.log(conditions);
+//   console.log(weatherData)
+// }
 
   return (
     <>
@@ -54,16 +55,7 @@ async function handleSubmit(e: React.FormEvent<HTMLElement>) {
         </a>
       </div>
       <h1>Weather</h1>
-      <section>
-        <form className="fields" onSubmit={handleSubmit}>
-          <label>
-            <input type="text" value={city} onChange={handleChange}/>
-          </label>
-          <button type="submit">
-            Fetch the Weather
-          </button>
-        </form>
-      </section>
+      <Form city={city} setCity={setCity} setWeatherData={setWeatherData} />
       <section>
         {weatherData ? (
         <div>
