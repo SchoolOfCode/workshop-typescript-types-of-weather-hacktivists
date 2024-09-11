@@ -7,11 +7,8 @@ function App() {
 
 const [city, setCity] = useState('');
 
-// e: React.ChangeEvent<HTMLInputElement>
-
 function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
   setCity(e.target.value);
-  console.log(city)
 }
 
   return (

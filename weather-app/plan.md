@@ -18,7 +18,7 @@
 - display field to show weather✅
 
 5. Link to the API - fetch data
-  - handleChange function for text field
+  - handleChange function for text field ✅
   - onSubmiit function for search button
   - create GET request using the imput text field 
   - onSubmit fire the GET request
