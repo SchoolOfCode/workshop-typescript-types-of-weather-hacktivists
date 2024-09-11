@@ -1,8 +1,8 @@
 # weather app plan
 
-1. install vite and typescript
+1. install vite and typescript✅
 
-2. npm run dev - to test in browser
+2. npm run dev - to test in browser✅
 
 3. investigate the API 
   - sign up for account 
