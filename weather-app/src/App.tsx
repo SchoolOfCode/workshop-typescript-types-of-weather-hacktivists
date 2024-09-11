@@ -5,6 +5,15 @@ import './App.css'
 
 function App() {
 
+const [city, setCity] = useState('');
+
+// e: React.ChangeEvent<HTMLInputElement>
+
+function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  setCity(e.target.value);
+  console.log(city)
+}
+
   return (
     <>
       <div>
@@ -19,7 +28,7 @@ function App() {
       <section>
         <form className="fields">
           <label>
-            <input/>
+            <input type="text" value={city} onChange={handleChange}/>
           </label>
           <button type="submit">
             Fetch the Weather
